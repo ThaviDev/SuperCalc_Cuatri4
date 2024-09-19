@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,12 +6,12 @@ using UnityEngine;
 public class CalcManager : MonoBehaviour
 {
     //https://www.youtube.com/watch?v=k4JlFxPcqlg
-    public delegate string NewResult(string result);
-    public static event NewResult Result;
+    public static Action<string> Result;
 
-    string num1;
-    string num2;
-    string oper;
+    string _num1;
+    string _num2;
+    string _oper;
+    string _currentResult;
 
     private static CalcManager _instance;
     public static CalcManager Instance
@@ -48,66 +49,72 @@ public class CalcManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        num1 = ""; num2 = ""; oper = "+";
+        _num1 = ""; _num2 = ""; _oper = "+";
         //print(float.Parse(num1) + float.Parse(num2));
     }
 
     public void GetNewResult()
     {
-        Result(Operation());
+        print("Hora de poner resultado");
+        Operation();
+        //Result += Operation();
+        Result?.Invoke(_currentResult);
     }
 
-    string Operation()
+    void Operation()
     {
         var _result = "";
         // Switch que maneja la posible operacion
-        switch (oper) {
+        switch (_oper) {
             case "+":
-                _result = "" + (float.Parse(num1) + float.Parse(num2));
+                _result = "" + (float.Parse(_num1) + float.Parse(_num2));
                 break;
             case "-":
-                _result = "" + (float.Parse(num1) - float.Parse(num2));
+                _result = "" + (float.Parse(_num1) - float.Parse(_num2));
                 break;
             case "*":
-                _result = "" + (float.Parse(num1) * float.Parse(num2));
+                _result = "" + (float.Parse(_num1) * float.Parse(_num2));
                 break;
             case "/":
                 try {
-                    _result = "" + (float.Parse(num1) / float.Parse(num2));
+                    _result = "" + (float.Parse(_num1) / float.Parse(_num2));
                 }
                 catch {
                     _result = "No dividir por 0";
                 }
                 break;
         }
-        return _result;
+        _currentResult = _result;
+        //return _result;
     }
 
     public void NewNumberScreen1(string _string)
     {
-        num1 += _string;
-        print("Nuevo numero en pantalla 1: " + _string + " Que hace el numero: " + num1);
-        UI_Manager.Instance.UpdateScreen1Num(num1);
+        _num1 += _string;
+        //print("Nuevo numero en pantalla 1: " + _string + " Que hace el numero: " + num1);
+        UI_Manager.Instance.UpdateScreen1Num(_num1);
     }
     public void NewNumberScreen2(string _string) 
     {
-        num2 += _string;
+        _num2 += _string;
+        UI_Manager.Instance.UpdateScreen2Num(_num2);
     }
     public void OperationType(string _string)
     {
-        oper = _string;
+        _oper = _string;
+        UI_Manager.Instance.UpdateOperation(_oper);
     }
     public void ErraseScreen1()
     {
-        num1 = "";
-        UI_Manager.Instance.UpdateScreen1Num(num1);
+        _num1 = "";
+        UI_Manager.Instance.UpdateScreen1Num(_num1);
     }
     public void ErraseScreen2()
     {
-        num2 = "";
+        _num2 = "";
+        UI_Manager.Instance.UpdateScreen2Num(_num2);
     }
 
 }

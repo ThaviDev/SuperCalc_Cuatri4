@@ -26,6 +26,7 @@ public class My3DButton : MonoBehaviour
         if (isResult)
         {
             CalcManager.Instance.GetNewResult();
+            return;
         }
         // Checa que tipo de boton es
         if (isNumber)
@@ -36,7 +37,7 @@ public class My3DButton : MonoBehaviour
             }
             else
             {
-                CalcManager.Instance.NewNumberScreen1(bChar);
+                CalcManager.Instance.NewNumberScreen2(bChar);
             }
         }
         else

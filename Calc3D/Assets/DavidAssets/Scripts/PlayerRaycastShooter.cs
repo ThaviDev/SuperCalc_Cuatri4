@@ -54,7 +54,7 @@ public class PlayerRaycastShooter : MonoBehaviour
                     //print(btn.bChar);
                 }
             }
-            shootCooldown = 0.2f;
+            shootCooldown = 1f;
         }
     }
 }
