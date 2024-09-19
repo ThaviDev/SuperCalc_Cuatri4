@@ -79,7 +79,7 @@ public class UI_Manager : MonoBehaviour
         print(resHistory.Count);
         for (int i = resHistory.Count; i >= 0; i--) {
             print("iteracion: " + i);
-            _historyText.text += resHistory[i] + "\n";
+            _historyText.text += resHistory[-1 + i] + "\n";
         }
     }
 
