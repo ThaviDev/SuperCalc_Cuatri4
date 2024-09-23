@@ -50,6 +50,8 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] TMP_Text _resultText;
     [SerializeField] TMP_Text _historyText;
 
+    [SerializeField] CalcManager _calcManager;
+
     void Start()
     {
         //CalcManager.Result += UpdateResult(string _strng);
@@ -64,10 +66,11 @@ public class UI_Manager : MonoBehaviour
 
     void AddHistoryElement(string _strng)
     {
-        resHistory.Add(_strng);
-        if (resHistory.Count >= 10)
+        CalcManager.Result -= AddHistoryElement;
+        resHistory.Add(_calcManager.GetElements() + _strng);
+        if (resHistory.Count >= 9)
         {
-            resHistory.RemoveAt(10);
+            resHistory.RemoveAt(0);
         }
         PrintHistory();
     }
@@ -77,10 +80,14 @@ public class UI_Manager : MonoBehaviour
         _historyText.text = "";
         _historyText.text += "History: \n";
         print(resHistory.Count);
-        for (int i = resHistory.Count; i >= 0; i--) {
+        for (int i = resHistory.Count; i > 0; i--) {
             print("iteracion: " + i);
             _historyText.text += resHistory[-1 + i] + "\n";
         }
+        CalcManager.Result += AddHistoryElement;
+        /*
+        for (int i = 0; i < resHistory.Count; i++) {
+        }*/
     }
 
     public void UpdateScreen1Num(string _strng)

@@ -7903,6 +7903,7 @@ MonoBehaviour:
   _operationText: {fileID: 1472653180}
   _resultText: {fileID: 77793934}
   _historyText: {fileID: 300541423}
+  _calcManager: {fileID: 2072509584}
 --- !u!1 &1378696803
 GameObject:
   m_ObjectHideFlags: 0
@@ -11801,6 +11802,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc65b78e68d8b62418f8b2c3cf44d032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _num1: 
+  _num2: 
+  _oper: 
 --- !u!4 &2072509585
 Transform:
   m_ObjectHideFlags: 0

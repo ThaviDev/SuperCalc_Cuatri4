@@ -55,6 +55,11 @@ public class CalcManager : MonoBehaviour
         //print(float.Parse(num1) + float.Parse(num2));
     }
 
+    public string GetElements()
+    {
+        return _num1 + " " + _oper + " " + _num2 + " = ";
+    }
+
     public void GetNewResult()
     {
         print("Hora de poner resultado");
